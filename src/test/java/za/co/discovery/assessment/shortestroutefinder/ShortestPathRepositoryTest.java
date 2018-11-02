@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PathImpl.class, ShortestPathService.class,
-        DataSourceConfig.class, PersistenceConfig.class, ImportDataService.class},
+        DataSourceConfig.class, PersistenceConfig.class},
         loader = AnnotationConfigContextLoader.class)
 public class ShortestPathRepositoryTest {
     @Autowired
@@ -41,8 +41,6 @@ public class ShortestPathRepositoryTest {
 
     @Autowired
     private ShortestPathService shortestPathService;
-    @Autowired
-    private ImportDataService importDataService;
 
     @Test
     public void verifyThatDataInitializeAndGiveCorrectPath() throws Exception {
@@ -74,7 +72,7 @@ public class ShortestPathRepositoryTest {
         when(importDataService.getVertexById(expectedDestination.getId())).thenReturn(expectedDestination);
         when(importDataService.findEdgeBetweenVertexes(vertexA, vertexF)).thenReturn(edge1);
 
-        path.append("Earth (A) Pluto (F)");
+        path.append("Earth (A) Pluto (F) ");
         ShortestRouteRepository pathRepository = new ShortestRouteRepository(platformTransactionManager, importDataService, shortestPathService);
 
         // Test
