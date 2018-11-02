@@ -1,4 +1,4 @@
-package za.co.discovery.assessment.shortestroutefinder;
+package za.co.discovery.assessment.shortestroutefinder.webservice;
 
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.junit.Test;
@@ -16,6 +16,8 @@ import za.co.discovery.assessment.shortestroutefinder.repository.TrafficInfoRepo
 import za.co.discovery.assessment.shortestroutefinder.repository.VertexRepository;
 import za.co.discovery.assessment.shortestroutefinder.service.ImportDataService;
 import za.co.discovery.assessment.shortestroutefinder.service.ShortestPathService;
+import za.co.discovery.assessment.shortestroutefinder.webservice.ShortestRouteEndpoint;
+import za.co.discovery.assessment.shortestroutefinder.webservice.ShortestRouteRepository;
 import za.co.discovery.assessment.shortestroutefinder.webservice.config.WebServiceConfiguration;
 import za.co.discovery.assessment.shortestroutefinder.webservice.schema.FindShortestPathToRequest;
 import za.co.discovery.assessment.shortestroutefinder.webservice.schema.FindShortestPathToResponse;

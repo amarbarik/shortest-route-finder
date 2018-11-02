@@ -1,4 +1,4 @@
-package za.co.discovery.assessment.shortestroutefinder;
+package za.co.discovery.assessment.shortestroutefinder.webservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
