@@ -25,6 +25,7 @@ import za.co.discovery.assessment.shortestroutefinder.repository.VertexRepositor
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -144,6 +145,8 @@ public class ImportDataServiceTest {
         Vertex returned = importDataService.saveVertex(vertex);
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Vertex> query = builder.createQuery(Vertex.class);
+        Root<Vertex> vertexRoot = query.from(Vertex.class);
+        query.select(vertexRoot);
         List<Vertex> persistedVertexes = session.createQuery(query).getResultList();
 
         //Verify
@@ -292,7 +295,9 @@ public class ImportDataServiceTest {
         Edge returned = importDataService.saveEdge(edge);
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Edge> query = builder.createQuery(Edge.class);
-        List<Edge> persistedEdges = (List<Edge>) session.createQuery(query).getResultList();
+        Root<Edge> edgeRoot = query.from(Edge.class);
+        query.select(edgeRoot);
+        List<Edge> persistedEdges = session.createQuery(query).getResultList();
 
         //Verify
         assertThat(edge, sameBeanAs(returned));
@@ -459,8 +464,11 @@ public class ImportDataServiceTest {
         expectedTrafficInfos.add(traffic);
         //Test
         TrafficInfo returned = importDataService.saveTraffic(traffic);
-        Criteria criteria = session.createCriteria(TrafficInfo.class);
-        List<TrafficInfo> persistedTrafficInfos = (List<TrafficInfo>) criteria.list();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<TrafficInfo> query = builder.createQuery(TrafficInfo.class);
+        Root<TrafficInfo> trafficInfoRoot = query.from(TrafficInfo.class);
+        query.select(trafficInfoRoot);
+        List<TrafficInfo> persistedTrafficInfos = session.createQuery(query).getResultList();
 
         //Verify
         assertThat(traffic, sameBeanAs(returned));

@@ -43,17 +43,18 @@ public class ShortestPathEndpointTest {
         shortestPathRequest.setName("Moon");
 
         StringBuilder path = new StringBuilder();
-        path.append("Earth (A)\tMoon (B)");
+        path.append("Earth (A) Moon (B) ");
 
         FindShortestPathToResponse expectedResponse = new FindShortestPathToResponse();
         expectedResponse.setPath(path.toString());
+        expectedResponse.setDistanceTravelled("0.44 (Light Years)");
 
         //Test
         FindShortestPathToResponse actualResponse = shortestPathEndpoint.getShortestPath(shortestPathRequest);
 
         // Verify
         assertThat(actualResponse, sameBeanAs(expectedResponse));
-        assertThat(actualResponse.getPath(), sameBeanAs("Earth (A)\tMoon (B)"));
+        assertThat(actualResponse.getPath(), sameBeanAs(path));
     }
 
 }

@@ -129,24 +129,4 @@ public class PathServiceTest {
         assertEquals(actualUndirected, expectedUndirected);
     }
 
-    @Test
-    public void getVertexWithLowestDistance() throws Exception {
-
-    }
-
-    @Test
-    public void getShortestDistance() throws Exception {
-
-    }
-
-    @Test
-    public void getDistance() throws Exception {
-
-    }
-
-    @Test
-    public void getNeighbors() throws Exception {
-
-    }
-
 }
