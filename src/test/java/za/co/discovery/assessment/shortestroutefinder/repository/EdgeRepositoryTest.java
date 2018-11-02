@@ -144,11 +144,17 @@ public class EdgeRepositoryTest {
         List<Edge> expectedEdges = singletonList(expectedEdge);
         List<TrafficInfo> expectedTrafficInfos = singletonList(expectedTrafficInfo);
 
-        Criteria criteriaTrafficInfo = session.createCriteria(TrafficInfo.class);
-        List<TrafficInfo> actualTrafficInfos = (List<TrafficInfo>) criteriaTrafficInfo.list();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<TrafficInfo> query = builder.createQuery(TrafficInfo.class);
+        Root<TrafficInfo> trafficInfoRoot = query.from(TrafficInfo.class);
+        query.select(trafficInfoRoot);
+        List<TrafficInfo> actualTrafficInfos = session.createQuery(query).getResultList();
 
-        Criteria criteriaEdge = session.createCriteria(Edge.class);
-        List<Edge> actualEdges = (List<Edge>) criteriaEdge.list();
+        CriteriaQuery<Edge> queryE = builder.createQuery(Edge.class);
+        Root<Edge> edgeRoot = queryE.from(Edge.class);
+        queryE.select(edgeRoot);
+
+        List<Edge> actualEdges = session.createQuery(queryE).getResultList();
 
         //Verify
         assertThat(actualTrafficInfos, sameBeanAs(expectedTrafficInfos));
