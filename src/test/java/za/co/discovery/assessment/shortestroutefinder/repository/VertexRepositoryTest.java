@@ -18,6 +18,7 @@ import za.co.discovery.assessment.shortestroutefinder.model.Vertex;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,6 +56,8 @@ public class VertexRepositoryTest {
         vertexRepository.save(vertex);
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Vertex> query = builder.createQuery(Vertex.class);
+        Root<Vertex> vertexRoot = query.from(Vertex.class);
+        query.select(vertexRoot);
         List<Vertex> persistedVertexes = session.createQuery(query).getResultList();
 
         //Verify
@@ -80,6 +83,8 @@ public class VertexRepositoryTest {
         vertexRepository.update(vertexToUpdate);
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Vertex> query = builder.createQuery(Vertex.class);
+        Root<Vertex> vertexRoot = query.from(Vertex.class);
+        query.select(vertexRoot);
         List<Vertex> persistedVertexes = session.createQuery(query).getResultList();
 
         // Verify
@@ -114,6 +119,8 @@ public class VertexRepositoryTest {
         vertexRepository.update(vertexToUpdate);
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Vertex> query = builder.createQuery(Vertex.class);
+        Root<Vertex> vertexRoot = query.from(Vertex.class);
+        query.select(vertexRoot);
         List<Vertex> persistedVertexes = session.createQuery(query).getResultList();
 
         // Verify
@@ -138,6 +145,8 @@ public class VertexRepositoryTest {
         vertexRepository.delete(v2.getId());
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Vertex> query = builder.createQuery(Vertex.class);
+        Root<Vertex> vertexRoot = query.from(Vertex.class);
+        query.select(vertexRoot);
         List<Vertex> persistedVertexes = session.createQuery(query).getResultList();
 
         // Verify
@@ -193,10 +202,14 @@ public class VertexRepositoryTest {
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Vertex> query = builder.createQuery(Vertex.class);
+        Root<Vertex> vertexRoot = query.from(Vertex.class);
+        query.select(vertexRoot);
         List<Vertex> persistedVertexes = session.createQuery(query).getResultList();
 
 
         CriteriaQuery<Edge> queryEdge = builder.createQuery(Edge.class);
+        Root<Edge> edgeRoot = queryEdge.from(Edge.class);
+        queryEdge.select(edgeRoot);
         List<Edge> edges = session.createQuery(queryEdge).list();
 
         // Verify

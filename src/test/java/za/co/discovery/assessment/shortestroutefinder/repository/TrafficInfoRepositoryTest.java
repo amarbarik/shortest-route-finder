@@ -18,6 +18,7 @@ import za.co.discovery.assessment.shortestroutefinder.model.Vertex;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +68,8 @@ public class TrafficInfoRepositoryTest {
     private List<TrafficInfo> getTrafficInfos(Session session) {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<TrafficInfo> query = builder.createQuery(TrafficInfo.class);
+        Root<TrafficInfo> trafficInfoRoot = query.from(TrafficInfo.class);
+        query.select(trafficInfoRoot);
         return session.createQuery(query).getResultList();
     }
 
