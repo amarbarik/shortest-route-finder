@@ -9,12 +9,14 @@
     <!--/*/ <th:block th:include="headers/header :: header"></th:block> /*/-->
     <div>
         <h3>Find the shortest path from the source to a destination</h3>
+        <!--/*@thymesVar id="shortest" type="za.co.discovery.assessment.shortestroutefinder.dto.ShortestRouteModel"*/-->
         <form class="form-horizontal" th:action="@{/shortest}" th:object="${shortest}" method="post">
             <input type="hidden" th:field="*{vertexId}" />
             <p>Source: <input type="text" th:field="*{vertexName}" class="form-control"/></p>
             <label for="paths">Destination:</label>
             <br />
             <select id="paths" th:field="*{selectedVertex}" class="form-control input-lg">
+                <!--/*@thymesVar id="pathList" type="java.util.List<za.co.discovery.assessment.shortestroutefinder.model.Vertex>"*/-->
                 <option th:each="v : ${pathList}"
                         th:value="${v.id}"
                         th:text="${v.name}+' ('+${v.id}+')'">
