@@ -45,7 +45,7 @@ public class EdgeRepository {
     public int findNextId() {
         Session session = sessionFactory.getCurrentSession();
         String qry = "values ( next value for EDGE_SEQ )";
-        return (int) session.createNamedQuery(qry).uniqueResult();
+        return (int) session.createNativeQuery(qry).uniqueResult();
     }
 
     public Edge selectUnique(Long id) {

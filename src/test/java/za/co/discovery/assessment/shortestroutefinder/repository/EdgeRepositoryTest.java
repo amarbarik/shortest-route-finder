@@ -17,6 +17,9 @@ import za.co.discovery.assessment.shortestroutefinder.model.Edge;
 import za.co.discovery.assessment.shortestroutefinder.model.TrafficInfo;
 import za.co.discovery.assessment.shortestroutefinder.model.Vertex;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.Arrays;
 import java.util.List;
 
@@ -209,8 +212,11 @@ public class EdgeRepositoryTest {
 
         //Test
         edgeRepository.delete(e2);
-        Criteria criteria = session.createCriteria(Edge.class);
-        List<Edge> persistedEdges = (List<Edge>) criteria.list();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Edge> query = builder.createQuery(Edge.class);
+        Root<Edge> edgeRoot = query.from(Edge.class);
+        query.select(edgeRoot);
+        List<Edge> persistedEdges = session.createQuery(query).getResultList();
 
         // Verify
         assertThat(persistedEdges, sameBeanAs(expectedEdges));
