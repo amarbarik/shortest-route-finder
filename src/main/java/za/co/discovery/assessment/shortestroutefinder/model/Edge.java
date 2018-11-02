@@ -116,19 +116,15 @@ public class Edge implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Edge other = (Edge) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Edge edge = (Edge) o;
+
+        if (routeId != null ? !routeId.equals(edge.routeId) : edge.routeId != null) return false;
+        if (source != null ? !source.equals(edge.source) : edge.source != null) return false;
+        return destination != null ? destination.equals(edge.destination) : edge.destination == null;
+
     }
 }
