@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Interstellar Transport System</title>
+    <!--/*/ <th:block th:include="headers/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="headers/header :: header"></th:block> /*/-->
+    <!--/*@thymesVar id="vertices" type="java.util.List<za.co.discovery.assessment.shortestroutefinder.model.Vertex>"*/-->
+    <div th:if="${not #lists.isEmpty(vertices)}">
+        <h2>Planets</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="vertex : ${vertices}">
+                <td th:text="${vertex.id}">Id</td>
+                <td th:text="${vertex.name}">Planet Name</td>
+                <td><a th:href="${'/vertex/' + vertex.id}">View</a></td>
+                <td><a th:href="${'/vertex/edit/' + vertex.id}">Edit</a></td>
+                <td><a th:href="${'/vertex/delete/' + vertex.id}">Delete</a></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Interstellar Transport System</title>
+    <!--/*/ <th:block th:include="headers/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="headers/header :: header"></th:block> /*/-->
+    <!--/*@thymesVar id="edges" type="java.util.List<za.co.discovery.assessment.shortestroutefinder.model.Edge>"*/-->
+    <div th:if="${not #lists.isEmpty(edges)}">
+        <h2>Routes</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Planet Origin</th>
+                <th>Planet Destination</th>
+                <th>Distance(Light Years)</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="edge : ${edges}">
+                <!--/*@thymesVar id="id" type="java.lang.Long"*/-->
+                <td th:text="${edge.id}">Id</td>
+                <!--/*@thymesVar id="source" type="za.co.discovery.assessment.shortestroutefinder.model.Vertex"*/-->
+                <td th:text="${edge.source.id}">Planet Origin</td>
+                <!--/*@thymesVar id="destination" type="za.co.discovery.assessment.shortestroutefinder.model.Vertex"*/-->
+                <td th:text="${edge.destination.id}">Planet Destination</td>
+                <td th:text="${edge.distance}">Distance(Light Years)</td>
+                <td><a th:href="${'/edge/' + edge.id}">View</a></td>
+                <td><a th:href="${'/edge/edit/' + edge.id}">Edit</a></td>
+                <td><a th:href="${'/edge/delete/' + edge.id}">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Interstellar Transport System</title>
+
+    <!--/*/ <th:block th:include="headers/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="headers/header :: header"></th:block> /*/-->
+
+    <div class="well well-sm">Result</div>
+    <!--/*@thymesVar id="shortest" type="za.co.discovery.assessment.shortestroutefinder.dto.ShortestRouteModel"*/-->
+    <p class="lead"
+       th:text="'The shortest path from planet ' + ${shortest.vertexName}+ ' to '+ ${shortest.selectedVertexName} + ' is: '"/>
+    <p class="bg-success lead" th:text="${shortest.thePath}"/>
+    <div th:if="${not shortest.distanceTravelled.isEmpty()}">
+            <p class="bg-success lead" th:text="${shortest.distanceTravelled}"/>
+    </div>
+    <br/>
+    <button type="button" class="btn btn-primary">
+        <a href="#" th:href="@{/shortest}" style="text-decoration-color: white; color: white;">Back</a>
+    </button>
+</div>
+
+</body>
+</html>
