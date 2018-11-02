@@ -31,7 +31,8 @@ import static org.mockito.Mockito.when;
 
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {PathImpl.class, ShortestPathService.class, DataSourceConfig.class, PersistenceConfig.class},
+@ContextConfiguration(classes = {PathImpl.class, ShortestPathService.class,
+        DataSourceConfig.class, PersistenceConfig.class, ImportDataService.class},
         loader = AnnotationConfigContextLoader.class)
 public class ShortestPathRepositoryTest {
     @Autowired
@@ -40,12 +41,14 @@ public class ShortestPathRepositoryTest {
 
     @Autowired
     private ShortestPathService shortestPathService;
+    @Autowired
+    private ImportDataService importDataService;
 
     @Test
     public void verifyThatDataInitializeAndGiveCorrectPath() throws Exception {
 
         // SetUp Fixture
-        ImportDataService entityManagerService = mock(ImportDataService.class);
+        ImportDataService importDataService = mock(ImportDataService.class);
 
         Vertex vertexA = new Vertex("A", "Earth");
         Vertex vertexF = new Vertex("F", "Pluto");
@@ -66,12 +69,13 @@ public class ShortestPathRepositoryTest {
         LinkedList<Vertex> pathList = new LinkedList<>();
         pathList.add(expectedSource);
         pathList.add(expectedDestination);
-        when(entityManagerService.selectGraph()).thenReturn(graph);
-        when(entityManagerService.getVertexByName(expectedDestination.getName())).thenReturn(expectedDestination);
-        when(entityManagerService.getVertexById(expectedDestination.getId())).thenReturn(expectedDestination);
+        when(importDataService.selectGraph()).thenReturn(graph);
+        when(importDataService.getVertexByName(expectedDestination.getName())).thenReturn(expectedDestination);
+        when(importDataService.getVertexById(expectedDestination.getId())).thenReturn(expectedDestination);
+        when(importDataService.findEdgeBetweenVertexes(vertexA, vertexF)).thenReturn(edge1);
 
-        path.append("Earth (A)\tPluto (F)");
-        ShortestRouteRepository pathRepository = new ShortestRouteRepository(platformTransactionManager, entityManagerService, shortestPathService);
+        path.append("Earth (A) Pluto (F)");
+        ShortestRouteRepository pathRepository = new ShortestRouteRepository(platformTransactionManager, importDataService, shortestPathService);
 
         // Test
         pathRepository.initData();
